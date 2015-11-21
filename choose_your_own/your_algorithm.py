@@ -1,8 +1,12 @@
 #!/usr/bin/python
 
 import matplotlib.pyplot as plt
+from time import time
 from prep_terrain_data import makeTerrainData
 from class_vis import prettyPicture
+
+from sklearn import neighbors
+from sklearn.metrics import accuracy_score
 
 features_train, labels_train, features_test, labels_test = makeTerrainData()
 
@@ -30,8 +34,23 @@ plt.show()
 
 ### your code here!  name your classifier object clf if you want the 
 ### visualization code (prettyPicture) to show you the decision boundary
+print "creating classifier"
+clf = neighbors.KNeighborsClassifier(n_neighbors=10, weights='distance')
+print "done creating classifier"
 
+print "starts training"
+t0 = time()
+clf.fit(features_train, labels_train)
+print "training......"
+print "training time: ", round(time()-t0, 3), "s"
 
+print "starts predicting"
+t1 = time()
+print "predicting......"
+pred = clf.predict(features_test)
+print "prediction time: ", round(time()-t1, 3), "s"
+
+print accuracy_score(labels_test, pred)
 
 
 
