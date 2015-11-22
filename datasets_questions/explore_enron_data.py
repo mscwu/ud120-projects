@@ -18,5 +18,8 @@
 import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
-
+# print number of features for each person
+print len(enron_data["SKILLING JEFFREY K"])
+# print number of person of interest
+print len([people for people in enron_data if enron_data[people]["poi"]])
 
